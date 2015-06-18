@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Heatmap Server - Doc Screen</title>
+    <meta tag="HeatServer Doc.html" />
+    <style>
+    ul {
+        list-style-type: none;
+        margin: 6px;
+        padding: 8px;
+    }
+    
+    i {
+        color: blue;
+        font-size: 18px;
+        font-family: verdana;
+    }
+
+    div#api_menu {
+    	position: relative;
+    	width: 350px;
+    	background-color: #eed;
+    	border: 2px solid #ddd;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>Heatmap Server</h2>
+    <div id='api_menu'>
+        <p>API: </p>
+        <ul>
+            <li><i><a href="/heatmap">/heatmap</a></i>:
+                <br>Serves the store map page</li>
+            <li><i>/api/getpoints</i>: Gets points from server</li>
+            <li><i>/api/addpoints</i>: Adds a set of points to DB</li>
+            <li><i>/api/clearpoints</i>: Deletes all data from DB</li>
+            <li><i>/</i>: this guide</li>
+        </ul>
+    </div>
+</body>

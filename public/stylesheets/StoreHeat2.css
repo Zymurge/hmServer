@@ -1,0 +1,51 @@
+    body {
+        background-color: #b8d0b8;
+    }
+    
+    .demo-wrapper {
+        border: 3px outset darkolivegreen;
+        height: 419px;
+        width: 732px;
+        position: relative;
+        background-image: url(../images/store_layout.png);
+        z-index: 2;
+    }
+    
+    .heatmap {
+        height: 100%;
+        width: 100%;
+    }
+    
+    .pt {
+        position: absolute;
+        height: 3px;
+        width: 3px;
+        z-index: 10;
+        background-color: orange;
+    }
+    
+    .button-bar {
+        position: relative;
+        margin-top: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 692px;
+        height: 50px;
+        border: 2px inset #a2c0a5;
+        background-color: #c0dfc4;
+    }
+    
+    .button-bar button {
+        margin-left: 20px;
+        margin-top: 15px;
+        width: 60px;
+        background-color: #80b878;
+    }
+
+    button.test {
+        position: relative;
+        float: right;
+        margin-right: 20px;
+        margin-left: auto;
+        background-color: #dc9;
+    }
