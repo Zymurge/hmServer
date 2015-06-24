@@ -163,8 +163,12 @@
         console.log( "... row = ", json_row );
         $.post( dataAPI, {
             'row': json_row
-        }, function( data ) {
+        }, 
+        success: function( data ) {
             console.log( "Server:", data );
+        },
+        error: function( jqxhr, error, textStatus ) {
+            console.error( "PushPointsToServer -- Server error: " + error );
         } );
     }
 
