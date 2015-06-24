@@ -1,5 +1,6 @@
 // bin/getRows.js
 var loki = require( 'lokijs' );
+var debug = require('debug')('hmServer:server');
 
 var DBAccess = {
     //modules.export = {
@@ -22,7 +23,7 @@ var DBAccess = {
             }
         } );
 
-//        console.log( "--> DelRowsByStoreId(", stId, ")" );
+        debug( "--> DelRowsByStoreId( " + stId + " )" );
     },
 
     GetRowsByCustId: function( cuId ) {
@@ -33,7 +34,7 @@ var DBAccess = {
         } );
         rows = CleanMeta( rows );
 
-//        console.log( "--> GetPointsByCustId: sent ", rows.length, " records" );
+        debug( "--> GetPointsByCustId: sent " + rows.length + " records" );
         return JSON.stringify( rows );
     },
 
@@ -45,25 +46,24 @@ var DBAccess = {
         } );
         rows = CleanMeta( rows );
 
-//        console.log( "--> GetRowsByStoreId: sent ", rows.length, " records" );
+        debug( "--> GetRowsByStoreId: sent " + rows.length + " records" );
         return JSON.stringify( rows );
     },
 
     InsertRows: function( row ) {
-        //console.log( "InsertRows:\n", rows );
+        debug( "InsertRows:\n" + rows );
         var num = 0;
         // validate that required elements are in dataset, else fall through to no-op and -1 returned
         if ( row && row.hasOwnProperty( "storeId" ) && row.hasOwnProperty( "customerId" ) &&
             row.hasOwnProperty( "timestamp" ) && row.hasOwnProperty( "datapoints" ) ) {
             this.dp_collection.insert( row );
             num = row.datapoints.length;
- /*           console.log( "--> insert: ", num,
-                " points into DB. Total records: ", this.dp_collection
-                .data.length );*/
+            debug( "--> insert: " + num + " points into DB. Total records: " 
+                + this.dp_collection.data.length );
         } else {
             console.error( "--> InsertRows: Invalid format. Has keys:" );
             for ( var k in row ) {
-                console.log( "  ---> key:", k );
+                debug( "  ---> key:", k );
             };
 
             return -1;
@@ -96,10 +96,10 @@ function CleanMeta( rows ) {
 // Accepts an array of rows. Extracts datapoints set from each and combines into a single object
 // returns objects as { 'datapoints': [dataset] }
 function ExtractAllDatapoints( rows ) {
-    console.log( "::::ExtractAllDatapoints called with " + rows.length + " rows" );
+    debug( "::::ExtractAllDatapoints called with " + rows.length + " rows" );
     var data = [];
     for ( r in rows ) {
-        //console.log( "Concat row #" + r + ": " + rows[r] );
+        //debug( "Concat row #" + r + ": " + rows[r] );
         data = data.concat( rows[ r ].datapoints );
     }
 
