@@ -50,8 +50,8 @@ var DBAccess = {
         return JSON.stringify( rows );
     },
 
-    InsertRows: function( row ) {
-        debug( "InsertRows:\n" + rows );
+    InsertRow: function( row ) {
+        debug( "InsertRow:\n" + row );
         var num = 0;
         // validate that required elements are in dataset, else fall through to no-op and -1 returned
         if ( row && row.hasOwnProperty( "storeId" ) && row.hasOwnProperty( "customerId" ) &&

@@ -26,7 +26,7 @@ var Handlers = {
         debug( "  --> storeId: " + points.storeId + "\n  --> datapoints: " +
             points.datapoints.length );
 
-        var result = DAO.InsertRows( points );
+        var result = DAO.InsertRow( points );
         debug( "  --> InsertRows =", result );
         res.writeHead( 200, {
             'Content-Type': 'text/plain',
