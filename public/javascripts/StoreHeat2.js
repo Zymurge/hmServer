@@ -161,14 +161,25 @@
         var json_row = row;
         var json_row = JSON.stringify( row );
         console.log( "... row = ", json_row );
-        $.post( dataAPI, {
+/*        $.post( dataAPI, {
             'row': json_row
         }, 
-        success: function( data ) {
+        function( data ) {
             console.log( "Server:", data );
         },
         error: function( jqxhr, error, textStatus ) {
             console.error( "PushPointsToServer -- Server error: " + error );
+        } );*/
+        $.ajax( {
+            url: dataAPI,
+            type: "POST",
+            data: { 'row': json_row },
+            success: function( data ) {
+                console.log( "Server:", data );
+            },
+            error: function( jqxhr, textStatus, error ) {
+                console.error( "PushPointsToServer -- Server error: " + error + " / Status: " + textStatus );
+            }
         } );
     }
 
