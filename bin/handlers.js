@@ -1,7 +1,7 @@
 // handlers
 var DAO = require( './DBAccess' ).DAO;
 var extract = require( './DBAccess' ).Extract;
-var debug = require('debug')('hmServer:server');
+var debug = require('debug')('hmServer:handlers');
 
 var Handlers = {
     GetPoints: function( req, res ) {

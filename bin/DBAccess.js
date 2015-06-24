@@ -1,6 +1,6 @@
 // bin/getRows.js
 var loki = require( 'lokijs' );
-var debug = require('debug')('hmServer:server');
+var debug = require('debug')('hmServer:DBAccess');
 
 var DBAccess = {
     //modules.export = {
