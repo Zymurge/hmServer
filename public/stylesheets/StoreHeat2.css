@@ -4,10 +4,6 @@
     
     .demo-wrapper {
         border: 3px outset darkolivegreen;
-        height: 419px;
-        width: 732px;
-        position: relative;
-        background-image: url(../images/store_layout.png);
         z-index: 2;
     }
     

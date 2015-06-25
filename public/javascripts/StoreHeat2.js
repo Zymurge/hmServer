@@ -1,8 +1,9 @@
     // create instance
-    var drawing = false;
-    var dataAPI = "api/datapoints/";
-    var dataPoints = [];
-    var currUserId = 0;
+    var drawing = false,
+        dataAPI = "api/datapoints/",
+        dataPoints = [],
+        currUserId = 0,
+        currStoreId = 0;
 
     // temp constant until multiple store functionality is added
     var k_storeId = '1234';
@@ -10,24 +11,11 @@
     // vars to be populated after dom ready
     var heatmapInstance, $mapBox, offTop, offLeft, mouseBox;
 
-    $( function() { // document ready? 
-        $mapBox = $( '.demo-wrapper' )[ 0 ];
-        offTop = $mapBox.offsetTop;
-        offLeft = $mapBox.offsetLeft;
-        // create a one time box dimensions for mouse in div boundary check to avoid repetive math
-        mouseBox = {
-            minX: $mapBox.offsetLeft,
-            maxX: $mapBox.offsetLeft + $mapBox.offsetWidth - $mapBox.clientLeft,
-            minY: $mapBox.offsetTop,
-            maxY: $mapBox.offsetTop + $mapBox.offsetHeight - $mapBox.clientTop
-        }
-
-        heatmapInstance = h337.create( {
-            container: document.querySelector( '.demo-wrapper' ),
-            radius: 12,
-            min: 0,
-            max: 3000
-        } )
+    $( function() { // document ready?
+        // TODO: build store ID selector and load map on demand
+        // hard code store id for now
+        currStoreId = k_storeId;
+        SetStoreMap( GetStoreMapImage( currStoreId ) );
 
         $( '.demo-wrapper' ).on( 'click', function( ev ) {
             if ( drawing ) {
@@ -142,9 +130,14 @@
             } );
     }
 
+    var GetStoreMapImage = function( storeId ) {
+        // TODO: build a store ID lookup, probably server side
+        return '../images/store_layout.png';
+    }
+
     var MouseInBox = function( ev, box ) {
-        return ev.pageX >= box.minX && ev.pageX <= box.maxX && ev.pageY >= box.minY && ev.pageY <=
-            box.maxY;
+        return ev.pageX >= box.minX && ev.pageX <= box.maxX 
+            && ev.pageY >= box.minY && ev.pageY <= box.maxY;
     }
 
     var PushPointsToServer = function( pts ) {
@@ -205,4 +198,37 @@
         } else {
             console.error( "SetMode: Illegal mode arg - ", mode );
         }
+    }
+
+    var SetStoreMap = function( imgUrl ) {
+        // First set the map image and apply to div as background
+        var quotedUrl = 'url( "' + imgUrl + '" )';
+        console.log( "Setting background image to:", quotedUrl );
+        $( '.demo-wrapper' ).css( "background-image", quotedUrl );
+
+        // Calculate the image dimensions and size the div accordingly
+        var img = new Image;
+        img.src = imgUrl;
+        $(img).load( function () {
+            $( '.demo-wrapper' ).css( "height", img.height );
+            $( '.demo-wrapper' ).css( "width", img.width );
+            // Add some one time calculations for heavily used drawing boundaries
+            $mapBox = $( '.demo-wrapper' )[ 0 ];
+            offTop = $mapBox.offsetTop;
+            offLeft = $mapBox.offsetLeft;
+            // create a one time box dimensions for mouse in div boundary check to avoid repetive math
+            mouseBox = {
+                minX: $mapBox.offsetLeft,
+                maxX: $mapBox.offsetLeft + $mapBox.offsetWidth - $mapBox.clientLeft,
+                minY: $mapBox.offsetTop,
+                maxY: $mapBox.offsetTop + $mapBox.offsetHeight - $mapBox.clientTop
+            }
+            // And build the heatmap instance
+            heatmapInstance = h337.create( {
+                container: document.querySelector( '.demo-wrapper' ),
+                radius: 12,
+                min: 0,
+                max: 2000
+            } )
+        } )
     }
