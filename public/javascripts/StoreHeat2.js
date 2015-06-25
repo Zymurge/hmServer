@@ -108,7 +108,7 @@
         var url = dataAPI + stId;
         console.log( "Get data from server: ", url );
         GetData( url, function( err, data ) {
-            console.log( "In GetData - err=", err, " data=", data );
+            //console.log( "In GetData - err=", err, " data=", data );
             if ( !err ) {
                 SetMapPoints( data.datapoints );
             } else {
@@ -175,10 +175,16 @@
             }
         } );
     }
-
+ 
+    // Assumes that points is an array of valid heatmap datapoints, not the full setData JSON
     var SetMapPoints = function( points ) {
         console.log( "SetMapPoints: adding , ", points.length, " points" );
-        heatmapInstance.addData( points );
+        var data = {
+            min: 1,
+            max: 10,
+            data: points
+        }
+        heatmapInstance.setData( data );
         var test = heatmapInstance.getData();
         console.log( " . . . After add, ", test.data.length, " points" );
     }
